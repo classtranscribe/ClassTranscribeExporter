@@ -128,12 +128,12 @@ def get_transcriptions(transcriptions,directory,basefilename):
 def main():
     auth=os.environ.get('CLASSTRANSCRIBE_AUTH','')
     if len(auth)<100:
-        print("Login to https://classtranscribe.illinois.edu then run localstorage['authtoken'] in the dev console or use the Applications tab (Chrome) to grab the authToken")
-        print("SET CLASSTRANSCRIBE_AUTH=(authToken)" if "windir" in os.environ else  "export CLASSTRANSCRIBE_AUTH=(authToken)" )
+        print(f"Login to {ctbase} then run localstorage['authtoken'] in the dev console or use the Applications tab (Chrome) to grab the authToken")
+        print("SET CLASSTRANSCRIBE_AUTH='...authToken...'" if "windir" in os.environ else  "export CLASSTRANSCRIBE_AUTH='...authToken...'\n(Tip:no spaces around the = sign)" )
         sys.exit(1)
     auth = auth.replace('"','').replace("'",'').strip()
 
-    session.headers.update({'Authorization':  "Bearer "+ auth, 'Referer' : 'https://classtranscribe.illinois.edu'})
+    session.headers.update({'Authorization':  "Bearer "+ auth, 'Referer' :  ctbase})
     if  'localhost' in ctbase:
         session.verify = False
         urllib3.disable_warnings()
